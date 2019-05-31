@@ -91,17 +91,17 @@ class CycleGAN2Model(BaseModel):
         self.image_paths = input['A_paths' if AtoB else 'B_paths']
 
 
-    def mask(self, fake_img, gt, sigma=1, no_mask=False): # .5 ~ 3 pixles, 1 ~ 5 pixels
+    def mask(self, fake_img, gt, sigma=3, no_mask=False): # .5 ~ 3 pixles, 1 ~ 5 pixels
         if no_mask:
             return fake_img
         else:
             #  + 1) / 2.0 * 255.0
             # Colors normalized to -1,1; -1 = BLACK, 1 = WHITE
 
-            white_space = (gaussian_filter(gt, sigma=sigma) > 0)
-            white_space = torch.from_numpy(np.array(2*white_space, dtype=np.float32))
+            white_space = (gaussian_filter(gt, sigma=sigma) > .8)
+            white_space = torch.from_numpy(np.array(white_space, dtype=np.float32))
             #fake_img[~blurred] = -1
-            fake_img = fake_img + white_space.to("cuda") # add one to everything over 0 (everything light gray)
+            fake_img = torch.max(fake_img,white_space.to("cuda")) # add one to everything over 0 (everything light gray)
             #print(fake_img)
             return fake_img
 

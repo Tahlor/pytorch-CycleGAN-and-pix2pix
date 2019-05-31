@@ -8,20 +8,22 @@ from PIL import Image
 from data.base_dataset import BaseDataset, get_transform
 import matplotlib.pyplot as plt
 
-def mask(fake_img, gt, sigma=10, no_mask=False, cuda=False):  # .5 ~ 3 pixles, 1 ~ 5 pixels
+def mask(fake_img, gt, sigma=3, no_mask=False, cuda=False):  # .5 ~ 3 pixles, 1 ~ 5 pixels
     if no_mask:
         return fake_img
     else:
         #  + 1) / 2.0 * 255.0
         # Colors normalized to -1,1; -1 = BLACK, 1 = WHITE
 
-        white_space = (gaussian_filter(gt, sigma=sigma) > 0)
-        white_space = torch.from_numpy(np.array(2 * white_space, dtype=np.float32))
+        white_space = (gaussian_filter(gt, sigma=sigma) > .8)
+        white_space = torch.from_numpy(np.array(white_space, dtype=np.float32))
+
         # fake_img[~blurred] = -1
         if cuda:
             white_space = white_space.to("cuda")
-        #fake_img = fake_img + (white_space)  # add one to everything over 0 (everything light gray)
-        fake_img = fake_img * (white_space-2)*-1/2 #
+        print(fake_img)
+        print(white_space)
+        fake_img = np.maximum(fake_img, white_space*1.5)
         # print(fake_img)
         return fake_img
 
