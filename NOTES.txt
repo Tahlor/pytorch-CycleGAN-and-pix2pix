@@ -1,0 +1,20 @@
+PyTorch
+pip3 install torch torchvision
+
+python train.py --dataroot ./datasets/handwriting --name handwriting_cyclegan --model cycle_gan
+
+
+
+TORCH:
+http://torch.ch/docs/getting-started.html
+
+git clone https://github.com/torch/distro.git ~/torch --recursive
+cd ~/torch; bash install-deps;
+./install.sh
+
+
+sudo apt-get install luarocks
+
+luarocks install nngraph
+luarocks install class
+luarocks install https://raw.githubusercontent.com/szym/display/master/display-scm-0.rockspec
