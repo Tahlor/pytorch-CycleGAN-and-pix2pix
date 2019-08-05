@@ -44,7 +44,10 @@ cd "/fslhome/$USER/fsl_groups/fslg_hwr/compute/pytorch-CycleGAN"
 
 # --num_test
 #python -u test.py --dataroot ./datasets/hwr --name handwriting_cyclegan_BW --model cycle_gan --input_nc 1 --output_nc 1 --loadSizeY 64 --fineSizeY 64 --fineSizeX 1280 --loadSizeX 1280 --results_dir "./results" --step 200
-python -u test.py --dataroot ./datasets/hwr --name handwriting_cyclegan_BW_GT --model cycle_gan2 --input_nc 1 --output_nc 1 --loadSizeY 64 --fineSizeY 64 --fineSizeX 1280 --loadSizeX 1280 --results_dir "./results" --step 5800 --num_test 12149 --image_type fake_B
+#python -u test.py --dataroot ./datasets/hwr --name handwriting_cyclegan_BW_GT --model cycle_gan2 --input_nc 1 --output_nc 1 --loadSizeY 64 --fineSizeY 64 --fineSizeX 1280 --loadSizeX 1280 --results_dir "./results" --step 5800 --num_test 12149 --image_type fake_B
+
+# No GT
+python -u test.py --dataroot ./datasets/hwr --name handwriting_cyclegan_BW --model cycle_gan --input_nc 1 --output_nc 1 --loadSizeY 64 --fineSizeY 64 --fineSizeX 1280 --loadSizeX 1280 --results_dir "./results" --step 4500 --num_test 12149 --image_type fake_B
 
 #--continue_train
 

@@ -51,6 +51,9 @@ class BaseOptions():
         parser.add_argument('--suffix', default='', type=str, help='customized suffix: opt.name = opt.name + suffix: e.g., {model}_{netG}_size{loadSize}')
         parser.add_argument('--generate_on_the_fly', action='store_true', help='generate font images on the fly')
 
+        # Visuals
+        parser.add_argument('--image_type', nargs='+', default=None, help='which images to generate fake_B, fake_A')
+
         self.initialized = True
         return parser
 
